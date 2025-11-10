@@ -1,0 +1,184 @@
+Django commnnds 
+>pip freeze
+>pip install virtualenv (for install virtual env)
+>python -m venv <folder name>
+>pip install Django
+ django-admin startproject demo .
+>code . (code will open in vs code )
+>source <folde name>/scipts/activate 
+>python manage.py runserver
+
+Django server will start 127.0.0.1:8000
+
+
+html boilerplate 
+! and press tab if dont get browse to html boiler.com
+--------------------------------------
+request home page
+go to url.py 
+add home path 
+path('home/', views.home),
+
+create on fil <views.py>
+add 
+from django.http import HttpResponse
+
+
+create views.py folder 
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse('hello world')
+----------------------------------------------
+render templates
+
+create a template folder in root floder  inside the folder create a file home.html
+ 
+add render request in view.py
+
+from django.http import HttpResponse
+from django.shortcuts import render
+def home(request):
+    return render(request, 'home.html')
+
+inside templates folder 
+<h1> message </h1> 
+
+settings.py
+ in templates 
+DIRS [templates]
+
+------------------------------------
+
+implemante html boilerplates
+
+browse html boilerplates copy<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello, world!</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <link rel="icon" href="favicon.png">
+</head>
+<body>
+  <h1>Hello, world!</h1>
+</body>
+</html> code 
+
+change the title and h1
+------------------------------------
+Bootstrap integration
+
+go to bootstrap web site 
+
+there include via CDN
+copy the both codes and past in home.html file code before <head> Colum
+
+inside the table column copy the table code and past 
+
+--------------------------------------------
+static file 
+
+create a static folder in the project file 
+inside the static folder create a css folder and image folder 
+create a file inside the css file name style.css
+
+
+style.css file 
+body{
+    background-color: blue;
+}
+
+link this style to inside the home.html file
+
+go to settings.py file 
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR /'static'
+STATICFILES_DIRS = [
+    'demo/static'
+]
+
+go to home.html
+add load statics to of the file 
+{% load static %}
+
+before head tag
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+
+add image 
+<img src="{% static '<image path>' %}" alt="width=400">
+-------------------------------------------
+create app with Django 
+
+python manage.py startapp <app name>
+login to admin panel by adding /admin to url
+
+to create an supe user 
+>python manage.py migrate
+>python manage.py createsuperuser
+
+
+create employee model
+go to model.py 
+
+from django.db import models
+
+class Employee (models.Model):
+    fist_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='image') 
+    designation = models.CharField(max_length=100)
+    email_adderss = models.EmailField(max_length=100, unique=True)
+    phone_number = models.CharField(max_length=12, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+go to settings.py 
+inside the INSTALL_APPS
+add 
+<app name>
+install pillow
+ python manage.py makemigrations
+python manage.py migrate (it will migrate the employee details to database)
+
+go to admin.py file
+from django.contrib import admin
+from .models import Employee
+
+admin.site.register(Employee)
+ create  afile in root dir with name media
+go to settindg.py 
+add media configuration
+
+# Media files cofigeration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
+
+go to url.py file
+add this commends before url pattern 
+from django.conf import settings
+from django.conf.urls.static import static 
+
+we can get this commends in Django conf file
+
+-------------------------------------------------
+                  Netflix clone app
+
+
+Requirments
+Ec2 server 
+1.netflix clone sever
+in this server we install jenkin docker and sonar servers
+
+2.
+
+
+
+
+Admin@123 jenkins
+
+
+ 
