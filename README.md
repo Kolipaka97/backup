@@ -2,6 +2,30 @@
 
 A flexible and configurable Bash script for backing up files and directories with support for compression, restoration, exclusion patterns, and backup rotation. Ideal for developers and sysadmins who want a simple CLI-based backup solution.
 
+Project Overview
+
+This project provides a **command-line backup solution** that:
+- Creates timestamped backups of files or directories.
+- Supports compression into `.tar.gz` archives.
+- Allows restoring backups to a target directory.
+- Lists available backups for quick reference.
+- Skips unnecessary files using exclusion patterns.
+- Maintains logs and checksum files for integrity verification.
+- Automatically rotates old backups to save space.
+
+---
+Requirements
+
+- **Operating System:** Linux/Unix (tested on Bash shell)
+- **Dependencies:**  
+  - `bash` (default shell)  
+  - `tar` (for compression)  
+  - `cp` (for file copying)  
+  - `sha256sum` (for checksum generation)  
+  - `tee`, `ls`, `find`, `awk` (standard utilities)
+
+---
+
 How to Use
 Make it executable
 chmod +x backup.sh
@@ -11,6 +35,7 @@ Run a full backup
 
  Default Folder Structure
 project-folder/
+---
 
  backup.sh          # The main script
  backup.log         # Detailed log of all backup runs
@@ -19,15 +44,6 @@ project-folder/
  backups/           # Backup storage folder
 
 ---
-
-bash-backup/
-│
-├── backup.sh        # Main backup script
-├── backup.conf      # Optional config file
-├── backups/         # Backup storage directory
-├── backup.log       # Log file
-├── backup.txt       # Output capture
-└── README.md        # Documentation
 
 
 ## Features
@@ -76,22 +92,33 @@ MONTHLY_KEEP=3
 - Keeps only the latest 5 backups (configurable via KEEP_COUNT)
 - Logs are saved to backup.log and backup.txt
 
- Restore Example
+----
 
-./backup.sh --restore backups/backup_2025-11-09_22-00-00.tar.gz --to /restore/path
+How It Works
 
-List Backups:
-./backup.sh --list
+- Setup Paths
+- Creates directories for backups, logs, and configuration.
+- Uses Asia/Kolkata timezone for timestamps.
+- Configuration
+- Loads settings from backup.conf if available.
 
-Dry Run Example
-./backup.sh --dry-run file1.txt file2.txt
+- Modes of Operation
+- Normal Backup Mode: Copies files into a timestamped folder.
+- List Mode: Displays available backups.
+- Restore Mode: Restores files from a backup archive or folder.
+- Dry-Run Mode: Shows what would be backed up without copying.
+- Recent Mode: Backs up files modified in the last X days
 
- Checksum Verification
-Each backup includes a .sha256 file for integrity checks:
-sha256sum -c backup_YYYY-MM-DD_HH-MM-SS.tar.gz.sha256
+- Compression
+- If --compress is enabled, backups are archived into .tar.gz.
+
+- Logging
+- All actions are logged in backup.log.
+- Output is also saved in backup.txt.
 
 Cleanup Policy
 Automatically deletes older backups beyond the configured KEEP_COUNT. Customize this in backup.conf.
+
 
 Output Example:
 The data will stored in the backup.log file
