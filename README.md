@@ -37,16 +37,11 @@ Run a full backup
 project-folder/
 ---
 
- backup.sh     
- # The main script
- backup.log    
- # Detailed log of all backup runs
- backup.txt    
- # Output log for current session
- backup.conf    
- # Optional configuration file
- backups/      
- # Backup storage folder
+ backup.sh # The main script
+ backup.log # Detailed log of all backup runs
+ backup.txt # Output log for current session
+ backup.conf # Optional configuration file
+ backups/ # Backup storage folder
 
 ---
 
