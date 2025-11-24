@@ -20,6 +20,16 @@ project-folder/
 
 ---
 
+bash-backup/
+│
+├── backup.sh        # Main backup script
+├── backup.conf      # Optional config file
+├── backups/         # Backup storage directory
+├── backup.log       # Log file
+├── backup.txt       # Output capture
+└── README.md        # Documentation
+
+
 ## Features
 
 -  Backup files or folders with optional compression (`.tar.gz`)
@@ -82,4 +92,17 @@ sha256sum -c backup_YYYY-MM-DD_HH-MM-SS.tar.gz.sha256
 
 Cleanup Policy
 Automatically deletes older backups beyond the configured KEEP_COUNT. Customize this in backup.conf.
+
+Output Example:
+The data will stored in the backup.log file
+
+[Mon, Nov 24, 2025 10:49:48 AM]  Starting backup...
+[Mon, Nov 24, 2025 10:49:48 AM]  No files specified — defaulting to all files in data/
+[Mon, Nov 24, 2025 10:49:48 AM]  Backed up: data/Predicto_Project_Report_Simple (1).pdf
+[Mon, Nov 24, 2025 10:49:48 AM]  Checksum file created: 2025-11-24_10-49-48.sha256
+[Mon, Nov 24, 2025 10:49:48 AM]  Removed old backup: 2025-11-09_20-38-27.sha256
+[Mon, Nov 24, 2025 10:49:48 AM]  Removed old backup: 2025-11-09_20-34-04.sha256
+[Mon, Nov 24, 2025 10:49:49 AM]  Backup process completed successfully.
+[Mon, Nov 24, 2025 10:49:49 AM]  Backup saved at: backups/2025-11-24_10-49-48
+[Mon, Nov 24, 2025 10:49:49 AM]  Log file: backup.log
 
