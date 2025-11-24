@@ -76,8 +76,19 @@ Option	Description
 ```bash
 ./backup.sh [options] [file1 file2 ...]
 
-Configerationa:
+Python:
+python backup.py --config config.yaml
+PowerShell:
+.\backup.ps1 -Config .\config.json
+Exit codes:
 
+0: success
+1: configuration error
+2: runtime error (I/O)
+3: verification failed
+Logs are written to logs/backup-YYYYMMDD.log by default.
+
+Configerationa:
 Create a backup.conf file in the script directory to override defaults
 
 BACKUP_DESTINATION="/custom/backup/path"
@@ -127,25 +138,16 @@ A compact README for the backup utility included in this repository. It document
 Overview
 This project provides a simple backup utility to copy or archive specified files and directories to a target storage location (local path, network share, or cloud mount). Features include incremental/archive modes, retention policy, logging, and optional encryption.
 
-Features
-Full and incremental backup modes
-Configurable source(s) and destination
-Retention and rotation rules
-Optional compression and encryption
-Logging and exit codes for automation
-Restore commands and verification
-Requirements
-Operating system: Windows, macOS, or Linux
-Shell or runtime: Bash / PowerShell / Python (depending on provided script)
-Disk space on destination >= expected backup size
-(Optional) gzip, tar, zip, openssl/openssl-compatible tool for compression/encryption
 Installation
+
 Clone the repository:
 git clone <repo-url>
 cd <repo-dir>
+
 Ensure the runtime and optional tools are installed (e.g., Python 3, tar, gzip).
 Make scripts executable if needed:
 chmod +x ./backup.sh
+
 Configuration
 Edit the configuration file or environment variables before running:
 
@@ -154,6 +156,7 @@ sources:
    - /path/to/dir
    - /path/to/file
 destination: /path/to/backup/location
+
 mode: incremental      # full | incremental
 retain: 7              # number of backups to keep
 compress: true
@@ -161,22 +164,6 @@ encrypt: false
 encryption_key: ""
 Alternatively use CLI flags:
 ./backup.sh --source /data --dest /backups --mode incremental --retain 14
-Usage
-Run a backup manually:
-
-Shell script:
-./backup.sh
-Python:
-python backup.py --config config.yaml
-PowerShell:
-.\backup.ps1 -Config .\config.json
-Exit codes:
-
-0: success
-1: configuration error
-2: runtime error (I/O)
-3: verification failed
-Logs are written to logs/backup-YYYYMMDD.log by default.
 
 Scheduling
 Linux/macOS (cron):
@@ -195,6 +182,7 @@ tar -xzvf backup.tar.gz -C /restore/path
 Verify permissions and ownership after restore if required.
 
 Testing
+
 Run the script on a small test dataset and verify contents in the destination.
 Use dry-run or verification flags if provided:
 ./backup.sh --dry-run
